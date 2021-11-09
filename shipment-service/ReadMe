@@ -1,0 +1,48 @@
+N.B:
+i) There is no clarity between the shipment API vs aftership API. So assuming we use tracking, I implemented tracking API
+for creating and retrieving
+ii) Didn't get much time to explore those API and its return type. As the API returns vast number of objects
+iii) Validation has done as per assignment expect the courior code API. Spring boot does not have such validation(Enum),
+we can have custom validation for the same
+iv) As the object from our API vs after ship API has some diff and need a transformer, I just bypass the aftership API for the
+demonstration
+v) As far as test case is concern, I have implemented few for the demonstration and all the cases can be covered similarly
+vi) Following are some of the sample URLs
+
+
+1) Create/Post API:
+http://localhost:8080/tracking/
+Header: Content-Type    application/json
+Body:
+ {
+        "trackingNumber": "9405511202575421535960",
+        "origin": "IN",
+        "destination" : "IN",
+        "courierCode" : "USPS"
+ }
+
+Sample Response:
+{
+    "statusCode": "OK",
+    "message": "http://localhost:8080/tracking/usps/9405511202575421535960"
+}
+
+2) Get API:
+    http://localhost:8080/tracking/usps/9405511202575421535960
+
+Sample Response:
+{
+    "meta": {
+        "code": "200"
+    },
+    "data": {
+        "tracking": {
+            "id": "nkds1li3d22ytkvsfzssg02i",
+            "slug": "usps",
+            "tracking_number": "9405511202575421535960",
+            "tag": "Pending",
+            "tracking_origin_country": null,
+            "tracking_destination_country": null
+        }
+    }
+}
