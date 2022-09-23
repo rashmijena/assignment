@@ -6,6 +6,7 @@ import com.innominds.assignment.shipmentservice.thirdParty.APIResponse;
 import com.innominds.assignment.shipmentservice.model.Shipment;
 import com.innominds.assignment.shipmentservice.response.CustomExceptionResponse;
 import com.innominds.assignment.shipmentservice.service.ShipmentService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,6 +22,7 @@ public class ShipmentController {
     private ShipmentService service;
 
 
+    @ApiOperation(value="Tracking a orderId", response = APIResponse.class)
     @GetMapping(path="/tracking/{slug}/{trackNum}",produces = MediaType.APPLICATION_JSON_VALUE)
     public APIResponse getShipment(@PathVariable("slug") String slug, @PathVariable("trackNum") String trackNum){
        return service.getShipment(slug,trackNum);
@@ -28,6 +30,7 @@ public class ShipmentController {
     }
 
 
+    @ApiOperation(value="Adding a shipment ID", response = CustomResponse.class)
     @PostMapping(path="/tracking", consumes = MediaType.APPLICATION_JSON_VALUE,produces =  MediaType.APPLICATION_JSON_VALUE)
     public CustomResponse createShipment(@RequestBody @Valid Shipment shipment) {
         return service.addShipment(shipment);
